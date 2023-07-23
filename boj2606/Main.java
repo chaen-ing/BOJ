@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static LinkedList<Integer>[] network;
+    static List<List<Integer>> network = new LinkedList<>(); // 링크드 리스트 안에 링크드 리스트 형태
     static boolean[] visited;
 
     public static void main(String[] args)throws IOException{
@@ -15,10 +15,9 @@ public class Main {
         int E = Integer.parseInt(br.readLine()); // 간선 개수
 
         visited = new boolean[N+1];
-        network = new LinkedList[N+1];
 
         for(int i = 0; i < N+1; i++){ // 컴퓨터 N번까지 링크드 리스트 생성
-            network[i] = new LinkedList<>();
+            network.add(new LinkedList<>());
         }
 
         for(int i = 0; i < E; i++){ // 양방향 연결리스트
@@ -26,13 +25,8 @@ public class Main {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
-            network[a].add(b);
-            network[b].add(a);
-        }
-
-        for(int i = 1; i < N+1; i++){ // 오름차순 정렬, 마지막 의미하는 0 삽입
-            Collections.sort(network[i]);
-            network[i].add(0);
+            network.get(a).add(b);
+            network.get(b).add(a);
         }
 
         System.out.println(bfs(N,E));
@@ -47,26 +41,23 @@ public class Main {
         int cnt = 0; // 방문한 노2드개수 저장
         int k;
 
-        while(queue.size() != 0){
-            for(int i = 0; i < network[node].size(); i++){
-                k = network[node].get(i); // 새로 탐색할 노드
-                if(k == 0){ // 더이상 탐색할 노드가 없을 때
-                    queue.poll();
-                    if(queue.size() == 0){ // 큐가 공백이 되면 종료
-                        return cnt;
-                    }
-                    node = queue.peek();
-                    i = -1;
+        while(!queue.isEmpty()){
+            node = queue.poll(); // 맨앞의 노드 가져옴
+
+            for(int i = 0; i < network.get(node).size(); i++){ // 각 노드의 크기만큼 탐색
+                k = network.get(node).get(i);
+
+                if(visited[k]){ // 방문한적 있는 노드일때
+                    continue;
                 }
-                else if(visited[k] == false){ // 방문한적 없는 인접노드
-                    visited[k] = true;
-                    queue.offer(k);
-                    cnt++;
-                }
-                // 탐색한적 있고 다음 노드가 있을때는 0이 나올때까지 인덱스 넘김
+
+                queue.offer(k); // 방문한 적 없는 노드일때
+                visited[k] = true;
+                cnt++;
+
             }
         }
 
     return cnt;
-    };
+    }
 }

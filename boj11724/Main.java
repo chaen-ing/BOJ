@@ -36,25 +36,27 @@ public class Main {
         boolean[] visited = new boolean[N+1];   // 방문여부 체크
 
         for(int i = 1 ; i < N+1; i++){
-            if(!visited[i]){    // 방문한 적 없는 노드일 때
-                q.add(i);
-                visited[i] = true;
-                while(!q.isEmpty()){    // 하나의 연결 요소를 찾으면 종료
-                    int node = q.poll();
+            if(visited[i])  // 방문한적 있을 때
+                continue;
 
-                    for(int j = 0; j < l.get(node).size(); j++){
-                        int k = l.get(node).get(j);
+            // 방문한 적 없을 때
+            q.add(i);
+            visited[i] = true;
 
-                        if(!visited[k]){
-                            q.add(k);
-                            visited[k] = true;
-                        }
+            while(!q.isEmpty()){    // 하나의 연결 요소를 찾으면 종료
+                int node = q.poll();
+
+                for(int j = 0; j < l.get(node).size(); j++){
+                    int k = l.get(node).get(j); // 현재 노드
+
+                    if(!visited[k]){
+                        q.add(k);
+                        visited[k] = true;
                     }
                 }
-                cnt++;
             }
+            cnt++;
         }
-
         return cnt;
     }
 }

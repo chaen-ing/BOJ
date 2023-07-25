@@ -36,29 +36,10 @@ class Node implements Comparable<Node>{
         this.y = y;
     }
 
-    public int getX(){
-        return this.x;
-    }
-
-    public int getY(){
-        return this.y;
-    }
-
     @Override
-    public int compareTo(Node node){
-        if(this.x < node.getX())   // 자신보다 값이 작을때
-            return -1;
-
-        else if(this.x > node.getX())    // 자신보다 값이 클때
-            return 1;
-
-        else{   // 값이 같을 때
-            if(this.y < node.getY())
-                return -1;
-            else if(this.y > node.getY())
-                return 1;
-        }
-
-        return 0;
+    public int compareTo(Node node) {
+        if (this.x == node.x)    // x가 같으면 y비교해서 리턴
+            return this.y - node.y;
+        return this.x - node.x; // 더크면 양수, 작으면 음수가 자동으로 리턴
     }
 }

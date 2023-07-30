@@ -10,7 +10,7 @@ public class Main {
         int num = 0;    // 봉지개수
 
         while(true){
-            if(N == 0){   // 3의 배수인 경우
+            if(N == 0){   // 3의 배수인 경우.
                 System.out.println(num);
                 return;
             }

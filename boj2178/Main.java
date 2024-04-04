@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
     static int [][] maze;
     static int [][] dist;
-    static boolean [][] visited;
     static int [] DX = {1,-1,0,0};
     static int [] DY = {0,0,1,-1};
 
@@ -19,14 +18,12 @@ public class Main {
 
         maze = new int[N][M];
         dist = new int[N][M];
-        visited = new boolean[N][M];
 
         // 미로 입력 받기
         for (int i = 0; i < N; i++) {
             String str = br.readLine();
             for (int j = 0; j < M; j++) {
                 maze[i][j] = str.charAt(j) - '0';
-                dist[i][j] = Integer.MAX_VALUE;
             }
         }
 
@@ -34,7 +31,6 @@ public class Main {
 
         // 시작 노드
         queue.offer(new Node(0,0));
-        visited[0][0] = true;
         dist[0][0] = 1;
 
         while(!queue.isEmpty()){
@@ -47,11 +43,16 @@ public class Main {
                 if(dx < 0 || dx >= N || dy < 0 || dy >= M){
                     continue;
                 }
-                else if(maze[dx][dy] == 1 && !visited[dx][dy]){
-                    queue.offer(new Node(dx,dy));
-                    visited[dx][dy] = true;
-                    dist[dx][dy] = dist[node.x][node.y] + 1;
+                if(maze[dx][dy] == 0){
+                    continue;
                 }
+                if(dist[dx][dy] != 0){
+                    continue;
+                }
+
+                queue.offer(new Node(dx,dy));
+                dist[dx][dy] = dist[node.x][node.y] + 1;
+
             }
         }
 

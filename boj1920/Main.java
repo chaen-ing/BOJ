@@ -9,6 +9,43 @@ public class Main {
         StringTokenizer st;
 
         int N = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+
+        // 배열 받고 정렬
+        arr = new int [N];
+        for(int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(arr);
+
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < M; i++) {
+            System.out.println(binarySearch(Integer.parseInt(st.nextToken()), 0, N-1));
+        }
+    }
+
+    static int binarySearch(int target, int start, int end){
+        int mid = (start + end) / 2;
+
+        if((start >= end) && (target != arr[mid])){
+            return 0;
+        }
+
+        if (target > arr[mid]){
+            return binarySearch(target, mid + 1, end);
+        }else if (target < arr[mid]) {
+            return binarySearch(target, start, mid - 1);
+        }else{
+            return 1;
+        }
+    }
+
+    private static void firstSolve() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        int N = Integer.parseInt(br.readLine());
 
         arr = new int[N];
 
@@ -31,7 +68,6 @@ public class Main {
                 System.out.println(0);
 
         }
-
     }
 
     public static boolean binarySearch(int key,int N){  // 이진탐색

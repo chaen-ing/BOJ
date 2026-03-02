@@ -71,10 +71,6 @@ class Time implements Comparable<Time> {
 	// 시간 오름차순 정렬
 	@Override
 	public int compareTo(Time o) {
-		if (this.time == o.time) {
-			return this.cnt - o.cnt;
-		} else {
-			return this.time - o.time;
-		}
+		return this.time - o.time;
 	}
 }

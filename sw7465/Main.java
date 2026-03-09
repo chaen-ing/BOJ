@@ -52,7 +52,7 @@ public class Main {
 	static int find(int x) {
 		if (parent[x] == x)
 			return x;
-		return parent[x] = find(parent[x]);    // 경로압축
+		return parent[x] = find(parent[x]);
 	}
 
 	static void union(int a, int b) {

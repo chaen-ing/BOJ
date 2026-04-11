@@ -1,4 +1,4 @@
-package ct_AiRobotVacuum;
+package CT_AiRobot_Vacuum;
 
 import java.io.BufferedReader;
 import java.io.IOException;
